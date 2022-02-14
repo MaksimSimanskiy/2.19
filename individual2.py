@@ -25,7 +25,6 @@ def tree(directory):
 
 def main(command_line=None):
 
-    # Создать основной парсер командной строки.
 
     parser = argparse.ArgumentParser()
     parser.add_argument('tree', action="store", help='Main command')
