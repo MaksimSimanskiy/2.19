@@ -10,21 +10,36 @@
 import argparse
 import pathlib
 import collections
-from colorama import Fore, Style
+from colorama import Fore
 from datetime import datetime
 
 
 def tree(directory):
-    print(Fore.RED + f'+ {directory}')
+    print(Fore.RED + f'/ {directory}')
     for path in sorted(directory.rglob('*')):
         depth = len(path.relative_to(directory).parts)
         spacer = ' ' * depth
-        print(Fore.BLUE + f'{spacer} ++ \033 {path.name}')
-    print(Style.RESET_ALL)
+        if path.suffix == ".exe":
+            print(Fore.BLUE + f'{spacer} ++ {path.name}')
+        if path.suffix == ".py":
+            print(Fore.LIGHTGREEN_EX + f'{spacer} ++ {path.name}')
+        if path.suffix == (".txt" or ".html"):
+            print(Fore.WHITE + f'{spacer} ++ {path.name}')
+        if path.suffix == ".docx":
+            print(Fore.RED + f'{spacer} ++ {path.name}')
+        if path.suffix == ".dll":
+            print(Fore.CYAN + f'{spacer} ++ {path.name}')
+        if path.suffix == ".lib":
+            print(Fore.MAGENTA + f'{spacer} ++ {path.name}')
+        if path.suffix == ".pdf":
+            print(Fore.GREEN + f'{spacer} ++ {path.name}')
+        if path.suffix == "":
+            print(Fore.LIGHTYELLOW_EX + f'{spacer} / {path.name}')
 
 
 def main(command_line=None):
 
+    # Создать основной парсер командной строки.
 
     parser = argparse.ArgumentParser()
     parser.add_argument('tree', action="store", help='Main command')
